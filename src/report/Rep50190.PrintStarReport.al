@@ -80,21 +80,19 @@ report 50190 PrintStarReport
                 {
 
                 }
-                column(Sum; Sum)
+                column(Sum; ITLSum)
                 {
 
                 }
                 trigger OnAfterGetRecord()
                 begin
-                    Clear(Sum);
+                    Clear(ITLSum);
                     ITL.Reset();
                     ITL.SetFilter("Item No.", "Sales Shipment Line"."No.");
                     if ITL.FindSet() then
                         repeat
-                            if (ITL."Location Code" = 'RED') then
-                                Sum += ITL.Quantity;
                             if ((ITL."Location Code" = 'RED') or (ITL."Location Code" = 'YELLOW')) then
-                                Sum += ITL.Quantity;
+                                ITLSum += ITL.Quantity;
                         until ITL.Next() = 0;
                     // if (Sum = "Sales Shipment Line".Quantity) then
                     //     UpdatedItemNO := '*' + ITL."Item No.";
@@ -166,11 +164,8 @@ report 50190 PrintStarReport
 
     var
         Total: Decimal;
-
         ITL: Record "Item Ledger Entry";
-
-        Sum: Decimal;
-
+        ITLSum: Decimal;
         UpdatedItemNO: Code[20];
 
 }
