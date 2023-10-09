@@ -112,12 +112,11 @@ report 50193 SalespersonReport
                     Salesperson_Name := SalespersoncodeRec.Name;
 
                 SalesLine.Reset();
-                SalesLine.SetFilter("Document No.", "Sales Header"."No.");
-
+                SalesLine.SetRange("Document No.", "Sales Header"."No.");
                 SalesLine.SetFilter("Posting Date", '%1', FirstWeekDay1);
                 if SalesLine.FindSet() then
                     repeat
-                        SalesOnFirstDate := SalesLine.Amount;
+                        SalesOnFirstDate += SalesLine.Amount;
                     until SalesLine.Next() = 0
                 else
                     SalesOnFirstDate := 0;
