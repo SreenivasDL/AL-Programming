@@ -9,152 +9,103 @@ report 50193 SalespersonReport
     {
         dataitem("Sales Header"; "Sales Header")
         {
-            column(No_; "No.")
-            {
+            column(No_; "No.") { }
+            column(Salesperson_Code; "Salesperson Code") { }
+            column(Salesperson_Name; Salesperson_Name) { }
+            column(Amount; Amount) { }
+            column(FirstDate; FirstDayOfMonth) { }
+            column(Posting_Date; "Posting Date") { }
+            column(SalesOnFirstDate; SalesOnFirstDate) { }
+            column(FirstWeekDay1; FirstWeekDay1) { }
+            column(FirstWeekDay2; FirstWeekDay2) { }
+            column(SecondWeekDay1; SecondWeekDay1) { }
+            column(SecondWeekDay2; SecondWeekDay2) { }
+            column(ThirdWeekDay1; ThirdWeekDay1) { }
+            column(ThirdWeekDay2; ThirdWeekDay2) { }
+            column(FourthWeekDay1; FourthWeekDay1) { }
+            column(ForuthWeekDay2; FourthWeekDay2) { }
+            column(FifthWeekDay1; FifthWeekDay1) { }
+            column(FifthWeekDay2; FifthWeekDay2) { }
+            column(FirstWeekSalesTotal; FirstWeekSalesTotal) { }
+            column(SecondWeekSalesTotal; SecondWeekSalesTotal) { }
+            column(ThirdWeekSalesTotal; ThirdWeekSalesTotal) { }
+            column(FourthWeekSalesTotal; FourthWeekSalesTotal) { }
+            column(FifthWeekSalesTotal; FifthWeekSalesTotal) { }
+            column(TotalAmount; TotalAmount) { }
 
-            }
-            column(Salesperson_Code; "Salesperson Code")
-            {
-
-            }
-            column(Salesperson_Name; Salesperson_Name)
-            {
-
-            }
-            column(Amount; Amount)
-            {
-
-            }
-            column(FirstDate; FirstDayOfMonth)
-            {
-
-            }
-            column(Posting_Date; "Posting Date")
-            {
-
-            }
-            column(SalesOnFirstDate; SalesOnFirstDate)
-            {
-
-            }
-            column(FirstWeekDay1; FirstWeekDay1)
-            {
-
-            }
-            column(FirstWeekDay2; FirstWeekDay2)
-            {
-
-            }
-            column(SecondWeekDay1; SecondWeekDay1)
-            {
-
-            }
-            column(SecondWeekDay2; SecondWeekDay2)
-            {
-
-            }
-            column(ThirdWeekDay1; ThirdWeekDay1)
-            {
-
-            }
-            column(ThirdWeekDay2; ThirdWeekDay2)
-            {
-
-            }
-            column(FourthWeekDay1; FourthWeekDay1)
-            {
-
-            }
-            column(ForuthWeekDay2; FourthWeekDay2)
-            {
-
-            }
-            column(FifthWeekDay1; FifthWeekDay1)
-            {
-
-            }
-            column(FifthWeekDay2; FifthWeekDay2)
-            {
-
-            }
-            column(FirstWeekSalesTotal; FirstWeekSalesTotal)
-            {
-
-            }
-            column(SecondWeekSalesTotal; SecondWeekSalesTotal)
-            {
-
-            }
-            column(ThirdWeekSalesTotal; ThirdWeekSalesTotal)
-            {
-
-            }
-            column(FourthWeekSalesTotal; FourthWeekSalesTotal)
-            {
-
-            }
-            column(FifthWeekSalesTotal; FifthWeekSalesTotal)
-            {
-
-            }
-            column(TotalAmount; TotalAmount)
-            {
-
-            }
             trigger OnAfterGetRecord()
             var
                 SalespersoncodeRec: Record "Salesperson/Purchaser";
                 SalesHeader: Record "Sales Header";
                 SalesLine: Record "Sales Line";
             begin
-                SalespersoncodeRec.SetFilter(Code, "Sales Header"."Salesperson Code");
+                SalespersoncodeRec.SetRange(Code, "Sales Header"."Salesperson Code");
                 if SalespersoncodeRec.FindSet() then
                     Salesperson_Name := SalespersoncodeRec.Name;
 
                 SalesLine.Reset();
                 SalesLine.SetRange("Document No.", "Sales Header"."No.");
                 SalesLine.SetFilter("Posting Date", '%1', FirstWeekDay1);
-                if SalesLine.FindSet() then
-                    repeat
-                        SalesOnFirstDate += SalesLine.Amount;
-                    until SalesLine.Next() = 0
+                if SalesLine.FindSet() then begin
+                    SalesLine.CalcSums(Amount);
+                    SalesOnFirstDate := SalesLine.Amount;
+                end
+                // repeat
+                //     SalesOnFirstDate += SalesLine.Amount;
+                // until SalesLine.Next() = 0
+
                 else
                     SalesOnFirstDate := 0;
 
                 SalesLine.SetFilter("Posting Date", '%1..%2', FirstWeekDay1, FirstWeekDay2);
-                if SalesLine.FindSet() then
-                    repeat
-                        FirstWeekSalesTotal += SalesLine.Amount;
-                    until SalesLine.Next() = 0
+                if SalesLine.FindSet() then begin
+                    SalesLine.CalcSums(Amount);
+                    FirstWeekSalesTotal := SalesLine.Amount;
+                end
+                // repeat
+                //     FirstWeekSalesTotal += SalesLine.Amount;
+                // until SalesLine.Next() = 0
                 else
                     FirstWeekSalesTotal := 0;
 
                 SalesLine.SetFilter("Posting Date", '%1..%2', SecondWeekDay1, SecondWeekDay2);
-                if SalesLine.FindSet() then
-                    repeat
-                        SecondWeekSalesTotal += SalesLine.Amount;
-                    until SalesLine.Next() = 0
+                if SalesLine.FindSet() then begin
+                    SalesLine.CalcSums(Amount);
+                    SecondWeekSalesTotal := SalesLine.Amount;
+                end
+                // repeat
+                //     SecondWeekSalesTotal += SalesLine.Amount;
+                // until SalesLine.Next() = 0
                 else
                     SecondWeekSalesTotal := 0;
                 SalesLine.SetFilter("Posting Date", '%1..%2', ThirdWeekDay1, ThirdWeekDay2);
-                if SalesLine.FindSet() then
-                    repeat
-                        ThirdWeekSalesTotal += SalesLine.Amount;
-                    until SalesLine.Next() = 0
+                if SalesLine.FindSet() then begin
+                    SalesLine.CalcSums(Amount);
+                    ThirdWeekSalesTotal := SalesLine.Amount;
+                end
+                // repeat
+                //     ThirdWeekSalesTotal += SalesLine.Amount;
+                // until SalesLine.Next() = 0
                 else
                     ThirdWeekSalesTotal := 0;
                 SalesLine.SetFilter("Posting Date", '%1..%2', FourthWeekDay1, FourthWeekDay2);
-                if SalesLine.FindSet() then
-                    repeat
-                        FourthWeekSalesTotal += SalesLine.Amount;
-                    until SalesLine.Next() = 0
+                if SalesLine.FindSet() then begin
+                    SalesLine.CalcSums(Amount);
+                    FourthWeekSalesTotal := SalesLine.Amount;
+                end
+                // repeat
+                //     FourthWeekSalesTotal += SalesLine.Amount;
+                // until SalesLine.Next() = 0
                 else
                     FourthWeekSalesTotal := 0;
                 SalesLine.SetFilter("Posting Date", '%1..%2', FifthWeekDay1, FifthWeekDay2);
-                if SalesLine.FindSet() then
-                    repeat
-                        FifthWeekSalesTotal += SalesLine.Amount;
-                    until SalesLine.Next() = 0
+                if SalesLine.FindSet() then begin
+                    SalesLine.CalcSums(Amount);
+                    FifthWeekSalesTotal := SalesLine.Amount;
+                end
+                // repeat
+                //     FifthWeekSalesTotal += SalesLine.Amount;
+                // until SalesLine.Next() = 0
                 else
                     FifthWeekSalesTotal := 0;
 

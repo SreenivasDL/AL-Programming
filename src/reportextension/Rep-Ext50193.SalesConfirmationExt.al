@@ -26,6 +26,4 @@ reportextension 50193 SalesConfirmationExt extends "Standard Sales - Order Conf.
             LayoutFile = 'mylayout.rdl';
         }
     }
-    var
-        Label_ExternalDocNoLbl: Label 'Custom_ExternalDocNo';
 }

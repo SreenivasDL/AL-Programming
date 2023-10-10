@@ -19,6 +19,7 @@ pageextension 50190 SalesOrderext extends "Sales Order"
                     Report.Run(50191, true, false, SalesHeader);
                 end;
             }
+
         }
     }
 
