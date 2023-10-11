@@ -11,133 +11,6 @@
       <rd:DataSourceID>aef8ce64-e1a1-48b3-b0bf-256a9ab38135</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Bill_to_Name">
-          <DataField>Bill_to_Name</DataField>
-        </Field>
-        <Field Name="Bill_to_Address">
-          <DataField>Bill_to_Address</DataField>
-        </Field>
-        <Field Name="Bill_to_City">
-          <DataField>Bill_to_City</DataField>
-        </Field>
-        <Field Name="Bill_to_County">
-          <DataField>Bill_to_County</DataField>
-        </Field>
-        <Field Name="Bill_to_Post_Code">
-          <DataField>Bill_to_Post_Code</DataField>
-        </Field>
-        <Field Name="Bill_to_Country_Region_Code">
-          <DataField>Bill_to_Country_Region_Code</DataField>
-        </Field>
-        <Field Name="Ship_to_Name">
-          <DataField>Ship_to_Name</DataField>
-        </Field>
-        <Field Name="Ship_to_Address">
-          <DataField>Ship_to_Address</DataField>
-        </Field>
-        <Field Name="Ship_to_City">
-          <DataField>Ship_to_City</DataField>
-        </Field>
-        <Field Name="Ship_to_County">
-          <DataField>Ship_to_County</DataField>
-        </Field>
-        <Field Name="Ship_to_Post_Code">
-          <DataField>Ship_to_Post_Code</DataField>
-        </Field>
-        <Field Name="Ship_to_Country_Region_Code">
-          <DataField>Ship_to_Country_Region_Code</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Posting_Date">
-          <DataField>Posting_Date</DataField>
-        </Field>
-        <Field Name="Sell_to_Customer_No_">
-          <DataField>Sell_to_Customer_No_</DataField>
-        </Field>
-        <Field Name="Shipping_Agent_Code">
-          <DataField>Shipping_Agent_Code</DataField>
-        </Field>
-        <Field Name="Payment_Terms_Code">
-          <DataField>Payment_Terms_Code</DataField>
-        </Field>
-        <Field Name="Salesperson_Code">
-          <DataField>Salesperson_Code</DataField>
-        </Field>
-        <Field Name="Header_Shipment_Date">
-          <DataField>Header_Shipment_Date</DataField>
-        </Field>
-        <Field Name="External_Document_No_">
-          <DataField>External_Document_No_</DataField>
-        </Field>
-        <Field Name="SubtotalExclTax">
-          <DataField>SubtotalExclTax</DataField>
-        </Field>
-        <Field Name="SubtotalExclTaxFormat">
-          <DataField>SubtotalExclTaxFormat</DataField>
-        </Field>
-        <Field Name="SubtotalInclTax">
-          <DataField>SubtotalInclTax</DataField>
-        </Field>
-        <Field Name="SubtotalInclTaxFormat">
-          <DataField>SubtotalInclTaxFormat</DataField>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-        </Field>
-        <Field Name="QuantityFormat">
-          <DataField>QuantityFormat</DataField>
-        </Field>
-        <Field Name="Unit_of_Measure">
-          <DataField>Unit_of_Measure</DataField>
-        </Field>
-        <Field Name="ItemNo_">
-          <DataField>ItemNo_</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Shipment_Date">
-          <DataField>Shipment_Date</DataField>
-        </Field>
-        <Field Name="Unit_Price">
-          <DataField>Unit_Price</DataField>
-        </Field>
-        <Field Name="Unit_PriceFormat">
-          <DataField>Unit_PriceFormat</DataField>
-        </Field>
-        <Field Name="Amount_Including_VAT">
-          <DataField>Amount_Including_VAT</DataField>
-        </Field>
-        <Field Name="Amount_Including_VATFormat">
-          <DataField>Amount_Including_VATFormat</DataField>
-        </Field>
-        <Field Name="Picture">
-          <DataField>Picture</DataField>
-        </Field>
-        <Field Name="Name">
-          <DataField>Name</DataField>
-        </Field>
-        <Field Name="Address">
-          <DataField>Address</DataField>
-        </Field>
-        <Field Name="Phone_No_">
-          <DataField>Phone_No_</DataField>
-        </Field>
-        <Field Name="Fax_No_">
-          <DataField>Fax_No_</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2291,7 +2164,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox65</rd:DefaultName>
               <Top>4.14648in</Top>
-              <Left>2.01119in</Left>
+              <Left>2.02508in</Left>
               <Height>0.38769in</Height>
               <Width>1.11427in</Width>
               <ZIndex>36</ZIndex>
@@ -2347,7 +2220,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox66</rd:DefaultName>
               <Top>4.14648in</Top>
-              <Left>3.12546in</Left>
+              <Left>3.13165in</Left>
               <Height>0.38769in</Height>
               <Width>1.52083in</Width>
               <ZIndex>37</ZIndex>
@@ -2904,12 +2777,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2949,4 +2816,131 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Bill_to_Name">
+          <DataField>Bill_to_Name</DataField>
+        </Field>
+        <Field Name="Bill_to_Address">
+          <DataField>Bill_to_Address</DataField>
+        </Field>
+        <Field Name="Bill_to_City">
+          <DataField>Bill_to_City</DataField>
+        </Field>
+        <Field Name="Bill_to_County">
+          <DataField>Bill_to_County</DataField>
+        </Field>
+        <Field Name="Bill_to_Post_Code">
+          <DataField>Bill_to_Post_Code</DataField>
+        </Field>
+        <Field Name="Bill_to_Country_Region_Code">
+          <DataField>Bill_to_Country_Region_Code</DataField>
+        </Field>
+        <Field Name="Ship_to_Name">
+          <DataField>Ship_to_Name</DataField>
+        </Field>
+        <Field Name="Ship_to_Address">
+          <DataField>Ship_to_Address</DataField>
+        </Field>
+        <Field Name="Ship_to_City">
+          <DataField>Ship_to_City</DataField>
+        </Field>
+        <Field Name="Ship_to_County">
+          <DataField>Ship_to_County</DataField>
+        </Field>
+        <Field Name="Ship_to_Post_Code">
+          <DataField>Ship_to_Post_Code</DataField>
+        </Field>
+        <Field Name="Ship_to_Country_Region_Code">
+          <DataField>Ship_to_Country_Region_Code</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Posting_Date">
+          <DataField>Posting_Date</DataField>
+        </Field>
+        <Field Name="Sell_to_Customer_No_">
+          <DataField>Sell_to_Customer_No_</DataField>
+        </Field>
+        <Field Name="Shipping_Agent_Code">
+          <DataField>Shipping_Agent_Code</DataField>
+        </Field>
+        <Field Name="Payment_Terms_Code">
+          <DataField>Payment_Terms_Code</DataField>
+        </Field>
+        <Field Name="Salesperson_Code">
+          <DataField>Salesperson_Code</DataField>
+        </Field>
+        <Field Name="Header_Shipment_Date">
+          <DataField>Header_Shipment_Date</DataField>
+        </Field>
+        <Field Name="External_Document_No_">
+          <DataField>External_Document_No_</DataField>
+        </Field>
+        <Field Name="SubtotalExclTax">
+          <DataField>SubtotalExclTax</DataField>
+        </Field>
+        <Field Name="SubtotalExclTaxFormat">
+          <DataField>SubtotalExclTaxFormat</DataField>
+        </Field>
+        <Field Name="SubtotalInclTax">
+          <DataField>SubtotalInclTax</DataField>
+        </Field>
+        <Field Name="SubtotalInclTaxFormat">
+          <DataField>SubtotalInclTaxFormat</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="QuantityFormat">
+          <DataField>QuantityFormat</DataField>
+        </Field>
+        <Field Name="Unit_of_Measure">
+          <DataField>Unit_of_Measure</DataField>
+        </Field>
+        <Field Name="ItemNo_">
+          <DataField>ItemNo_</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Shipment_Date">
+          <DataField>Shipment_Date</DataField>
+        </Field>
+        <Field Name="Unit_Price">
+          <DataField>Unit_Price</DataField>
+        </Field>
+        <Field Name="Unit_PriceFormat">
+          <DataField>Unit_PriceFormat</DataField>
+        </Field>
+        <Field Name="Amount_Including_VAT">
+          <DataField>Amount_Including_VAT</DataField>
+        </Field>
+        <Field Name="Amount_Including_VATFormat">
+          <DataField>Amount_Including_VATFormat</DataField>
+        </Field>
+        <Field Name="Picture">
+          <DataField>Picture</DataField>
+        </Field>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+        </Field>
+        <Field Name="Phone_No_">
+          <DataField>Phone_No_</DataField>
+        </Field>
+        <Field Name="Fax_No_">
+          <DataField>Fax_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -42,8 +42,6 @@ report 50194 SalesConfirmationSubstitute
                 column(Unit_Price; "Unit Price") { }
                 column(Amount_Including_VAT; "Amount Including VAT") { }
 
-
-
                 dataitem("Company Information"; "Company Information")
                 {
                     column(Picture; Picture) { }
@@ -56,12 +54,13 @@ report 50194 SalesConfirmationSubstitute
                 var
                     SalesLine: Record "Sales Line";
                 begin
+                    SalesLine.Reset();
                     SalesLine.SetRange("Document No.", "Sales Header"."No.");
                     if SalesLine.FindSet() then begin
-                        repeat
-                            SubtotalExclTax += SalesLine."Line Amount";
-                            SubtotalInclTax += SalesLine."Amount Including VAT";
-                        until SalesLine.Next() = 0;
+                        SalesLine.CalcSums("Line Amount");
+                        SubtotalExclTax := SalesLine."Line Amount";
+                        SalesLine.CalcSums("Amount Including VAT");
+                        SubtotalInclTax := SalesLine."Amount Including VAT";
                     end;
                 end;
             }
