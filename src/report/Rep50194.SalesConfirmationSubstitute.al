@@ -57,8 +57,10 @@ report 50194 SalesConfirmationSubstitute
                     SalesLine.Reset();
                     SalesLine.SetRange("Document No.", "Sales Header"."No.");
                     if SalesLine.FindSet() then begin
+                        //Summing Line Amount of the orders in SalesLine based on current No.(Document No.)
                         SalesLine.CalcSums("Line Amount");
                         SubtotalExclTax := SalesLine."Line Amount";
+                        //Summing Amt Inc VAT of the orders in SalesLine based on current No. (Document No.)
                         SalesLine.CalcSums("Amount Including VAT");
                         SubtotalInclTax := SalesLine."Amount Including VAT";
                     end;
