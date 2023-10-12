@@ -88,19 +88,12 @@ report 50190 PrintStarReport
                 begin
                     Clear(ITLSum);
                     ITL.Reset();
-                    ITL.SetFilter("Item No.", "Sales Shipment Line"."No.");
+                    ITL.SetRange("Item No.", "Sales Shipment Line"."No.");
                     if ITL.FindSet() then
                         repeat
                             if ((ITL."Location Code" = 'RED') or (ITL."Location Code" = 'YELLOW')) then
                                 ITLSum += ITL.Quantity;
                         until ITL.Next() = 0;
-                    // if (Sum = "Sales Shipment Line".Quantity) then
-                    //     UpdatedItemNO := '*' + ITL."Item No.";
-
-                    // if Sum = 0 then
-                    //     UpdatedItemNO := '**' + ITL."Item No."
-                    // else
-                    //     UpdatedItemNO := ITL."Item No."
                 end;
             }
         }

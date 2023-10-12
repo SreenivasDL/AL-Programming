@@ -108,11 +108,11 @@ report 50195 QuantityBagSize
                         RoundedQuantity := ROUND("Sales Line".Quantity, 1, '=');
                         Quotient := RoundedQuantity DIV "Sales Line".BagSize;
                         Remainder := RoundedQuantity MOD "Sales Line".BagSize;
+                        if Remainder = 0 then
+                            CountOfLabelCopies := Quotient
+                        else
+                            CountOfLabelCopies := Quotient + 1;
                     end;
-                    if Remainder = 0 then
-                        CountOfLabelCopies := Quotient
-                    else
-                        CountOfLabelCopies := Quotient + 1;
                 end;
             }
         }
@@ -154,7 +154,6 @@ report 50195 QuantityBagSize
         NoOfLoops: Integer;
         CopyText: Text[30];
         OutputNo: Integer;
-        FormatDocument: Codeunit "Format Document";
         ItemNo: Code[20];
 
         Quotient: Integer;
