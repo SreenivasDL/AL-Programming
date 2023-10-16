@@ -35,12 +35,13 @@ report 50197 SalesPerformanceByShipTo
                 trigger OnAfterGetRecord()
                 begin
                     DateCalculation();
+                    Clear(OpenSalesOrders);
                     SalesLine.Reset();
                     SalesLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
-                    if SalesLine.FindSet() then
-                        repeat
-                            OpenSalesOrders += SalesLine.Amount;
-                        until SalesLine.Next() = 0
+                    if SalesLine.FindSet() then begin
+                        SalesLine.CalcSums(Amount);
+                        OpenSalesOrders := SalesLine.Amount;
+                    end;
                 end;
 
             }
@@ -86,10 +87,6 @@ report 50197 SalesPerformanceByShipTo
         PreviousYear := Date2DMY(CalcPreviousYear, 3);
     end;
 
-    trigger OnPostReport()
-    begin
-        Message(Format(MTDCreMemo));
-    end;
 
     local procedure DateCalculation()
     begin
