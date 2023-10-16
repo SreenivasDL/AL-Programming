@@ -9,7 +9,7 @@
             "server": "http://localhost",
             "serverInstance": "BC220",
             "authentication": "Windows",
-            "startupObjectId": 50198,
+            "startupObjectId": 50197,
             "startupObjectType": "Report",
             "breakOnError": "All",
             "launchBrowser": true,

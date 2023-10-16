@@ -34,12 +34,7 @@ report 50198 CustomerTopSalesForSixMonths
 
                 trigger OnAfterGetRecord()
                 begin
-                    SalesInFirstMonthCalc();
-                    SalesInSecondMonthCalc();
-                    SalesInThirdMonthCalc();
-                    SalesInFourthMonthCalc();
-                    SalesInFifthMonthCalc();
-                    SalesInSixthMonthCalc();
+                    SalesByMonth();
                     TotalSales := SalesInFirstMonth + SalesInSecondMonth + SalesInThirdMonth + SalesInFourthMonth + SalesInFifthMonth + SalesInSixthMonth;
 
                 end;
@@ -96,122 +91,66 @@ report 50198 CustomerTopSalesForSixMonths
             ArrayMonth[i] := Format(ArrayMonthCalc[i], 0, '<Month Text,3>');
     end;
 
-    local procedure SalesInFirstMonthCalc()
-    var
-        StartDate: Date;
-        EndDate: Date;
+    local procedure SalesByMonth()
     begin
-        StartDate := CalcDate('-CM-5M', ReportingDate);
-        EndDate := CalcDate('CM-5M', ReportingDate);
+
+        Clear(SalesInFirstMonth);
+        Clear(SalesInSecondMonth);
+        Clear(SalesInThirdMonth);
+        Clear(SalesInFourthMonth);
+        Clear(SalesInFifthMonth);
+        Clear(SalesInSixthMonth);
+        ArrayDateCalc[1, 1] := CalcDate('-CM-5M', ReportingDate);
+        ArrayDateCalc[2, 1] := CalcDate('-CM-4M', ReportingDate);
+        ArrayDateCalc[3, 1] := CalcDate('-CM-3M', ReportingDate);
+        ArrayDateCalc[4, 1] := CalcDate('-CM-2M', ReportingDate);
+        ArrayDateCalc[5, 1] := CalcDate('-CM-1M', ReportingDate);
+        ArrayDateCalc[6, 1] := CalcDate('-CM', ReportingDate);
+        ArrayDateCalc[1, 2] := CalcDate('CM-5M', ReportingDate);
+        ArrayDateCalc[2, 2] := CalcDate('CM-4M', ReportingDate);
+        ArrayDateCalc[3, 2] := CalcDate('CM-3M', ReportingDate);
+        ArrayDateCalc[4, 2] := CalcDate('CM-2M', ReportingDate);
+        ArrayDateCalc[5, 2] := CalcDate('CM-1M', ReportingDate);
+        ArrayDateCalc[6, 2] := CalcDate('CM', ReportingDate);
+
         SalesInvoiceLine.Reset();
         SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
         SalesInvoiceLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate, EndDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[1, 1], ArrayDateCalc[1, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             SalesInFirstMonth := SalesInvoiceLine.Amount;
-        end
-        else
-            SalesInFirstMonth := 0;
-    end;
+        end;
 
-    local procedure SalesInSecondMonthCalc()
-    var
-        StartDate: Date;
-        EndDate: Date;
-    begin
-        StartDate := CalcDate('-CM-4M', ReportingDate);
-        EndDate := CalcDate('CM-4M', ReportingDate);
-        SalesInvoiceLine.Reset();
-        SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
-        SalesInvoiceLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate, EndDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[2, 1], ArrayDateCalc[2, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             SalesInSecondMonth := SalesInvoiceLine.Amount;
-        end
-        else
-            SalesInSecondMonth := 0;
-    end;
+        end;
 
-    local procedure SalesInThirdMonthCalc()
-    var
-        StartDate: Date;
-        EndDate: Date;
-    begin
-        StartDate := CalcDate('-CM-3M', ReportingDate);
-        EndDate := CalcDate('CM-3M', ReportingDate);
-        SalesInvoiceLine.Reset();
-        SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
-        SalesInvoiceLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate, EndDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[3, 1], ArrayDateCalc[3, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             SalesInThirdMonth := SalesInvoiceLine.Amount;
-        end
-        else
-            SalesInThirdMonth := 0;
-    end;
+        end;
 
-    local procedure SalesInFourthMonthCalc()
-    var
-        StartDate: Date;
-        EndDate: Date;
-    begin
-        StartDate := CalcDate('-CM-2M', ReportingDate);
-        EndDate := CalcDate('CM-2M', ReportingDate);
-        SalesInvoiceLine.Reset();
-        SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
-        SalesInvoiceLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate, EndDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[4, 1], ArrayDateCalc[4, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             SalesInFourthMonth := SalesInvoiceLine.Amount;
-        end
-        else
-            SalesInFourthMonth := 0;
-    end;
+        end;
 
-    local procedure SalesInFifthMonthCalc()
-    var
-        StartDate: Date;
-        EndDate: Date;
-    begin
-        StartDate := CalcDate('-CM-1M', ReportingDate);
-        EndDate := CalcDate('CM-1M', ReportingDate);
-        SalesInvoiceLine.Reset();
-        SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
-        SalesInvoiceLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate, EndDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[5, 1], ArrayDateCalc[5, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             SalesInFifthMonth := SalesInvoiceLine.Amount;
-        end
-        else
-            SalesInFifthMonth := 0;
-    end;
+        end;
 
-    local procedure SalesInSixthMonthCalc()
-    var
-        StartDate: Date;
-        EndDate: Date;
-    begin
-        StartDate := CalcDate('-CM', ReportingDate);
-        EndDate := CalcDate('CM', ReportingDate);
-        SalesInvoiceLine.Reset();
-        SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
-        SalesInvoiceLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate, EndDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[6, 1], ArrayDateCalc[6, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             SalesInSixthMonth := SalesInvoiceLine.Amount;
         end
-        else
-            SalesInSixthMonth := 0;
-    end;
-
-    local procedure SalesByMonth()
-    begin
 
     end;
 
@@ -236,7 +175,6 @@ report 50198 CustomerTopSalesForSixMonths
         ArrayMonthCalc: array[6] of Date;
         ArrayMonth: array[6] of Text[20];
 
-        StartDate: array[6] of Date;
-        EndDate: array[6] of Date;
+        ArrayDateCalc: array[6, 6] of Date;
 
 }

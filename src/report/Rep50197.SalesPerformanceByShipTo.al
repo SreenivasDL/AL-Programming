@@ -24,22 +24,23 @@ report 50197 SalesPerformanceByShipTo
             column(LYR; LYR) { }
             column(ReportingDate; ReportingDate) { }
             column(PreviousYear; PreviousYear) { }
+            column(MTDCreMemo; MTDCreMemo) { }
+            column(LYMTDCreMemo; LYMTDCreMemo) { }
+            column(YTDCreMemo; YTDCreMemo) { }
+            column(LYTDCreMemo; LYTDCreMemo) { }
+            column(LYRCreMemo; LYRCreMemo) { }
             dataitem("Sales Invoice Line"; "Sales Invoice Line")
             {
                 DataItemLink = "Document No." = field("No.");
                 trigger OnAfterGetRecord()
                 begin
-                    MTDCalc();
-                    LYMTDCalc();
-                    YTDCalc();
-                    LYTDCalc();
-                    LYRClac();
-                    SalesInvoiceLine.Reset();
-                    SalesInvoiceLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
-                    if SalesInvoiceLine.FindSet() then
+                    DateCalculation();
+                    SalesLine.Reset();
+                    SalesLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
+                    if SalesLine.FindSet() then
                         repeat
-                            OpenSalesOrders += SalesInvoiceLine.Amount;
-                        until SalesInvoiceLine.Next() = 0
+                            OpenSalesOrders += SalesLine.Amount;
+                        until SalesLine.Next() = 0
                 end;
 
             }
@@ -85,90 +86,95 @@ report 50197 SalesPerformanceByShipTo
         PreviousYear := Date2DMY(CalcPreviousYear, 3);
     end;
 
-    local procedure MTDCalc()
-    Var
-        StartDate: Date;
+    trigger OnPostReport()
     begin
-        StartDate := CalcDate('-CM', ReportingDate);
+        Message(Format(MTDCreMemo));
+    end;
+
+    local procedure DateCalculation()
+    begin
+        ArrayDateCalc[1, 1] := CalcDate('-CM', ReportingDate);
+        ArrayDateCalc[2, 1] := CalcDate('CD-1Y-CM', ReportingDate);
+        ArrayDateCalc[3, 1] := CalcDate('-CY', ReportingDate);
+        ArrayDateCalc[4, 1] := CalcDate('-CY-1Y', ReportingDate);
+        ArrayDateCalc[5, 1] := CalcDate('-CY-1Y', ReportingDate);
+        ArrayDateCalc[1, 2] := ReportingDate;
+        ArrayDateCalc[2, 2] := CalcDate('CD-1Y', ReportingDate);
+        ArrayDateCalc[3, 2] := CalcDate('CY', ReportingDate);
+        ArrayDateCalc[4, 2] := CalcDate('CD-1Y', ReportingDate);
+        ArrayDateCalc[5, 2] := CalcDate('CY-1Y', ReportingDate);
+
+        Clear(MTD);
+        Clear(LYMTD);
+        Clear(YTD);
+        Clear(LYTD);
+        Clear(LYR);
+
         SalesInvoiceLine.Reset();
         SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
         SalesInvoiceLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate, ReportingDate);
+
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[1, 1], ArrayDateCalc[1, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             MTD := SalesInvoiceLine.Amount;
-        end
-        else
-            MTD := 0;
-    end;
+        end;
 
-    local procedure LYMTDCalc()
-    var
-        StartDate: Date;
-        EndDate: Date;
-    begin
-        EndDate := CalcDate('CD-1Y', ReportingDate);
-        StartDate := CalcDate('-CM', EndDate);
-        SalesInvoiceLine.Reset();
-        SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate, EndDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[2, 1], ArrayDateCalc[2, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             LYMTD := SalesInvoiceLine.Amount;
-        end
-        else
-            LYMTD := 0;
-    end;
+        end;
 
-    local procedure YTDCalc()
-    var
-        SartDate: Date;
-    begin
-        SartDate := CalcDate('-CY', ReportingDate);
-        SalesInvoiceLine.Reset();
-        SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
-        SalesInvoiceLine.SetRange("Posting Date", SartDate, ReportingDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[3, 1], ArrayDateCalc[3, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             YTD := SalesInvoiceLine.Amount;
-        end
-        else
-            YTD := 0;
-    end;
+        end;
 
-    local procedure LYTDCalc()
-    var
-        StartDate: Date;
-        EndDate: Date;
-    begin
-        StartDate := CalcDate('-CY-1Y', ReportingDate);
-        EndDate := CalcDate('CD-1Y', ReportingDate);
-        SalesInvoiceLine.Reset();
-        SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate, EndDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[4, 1], ArrayDateCalc[4, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             LYTD := SalesInvoiceLine.Amount;
-        end
-        else
-            LYTD := 0;
+        end;
 
-    end;
-
-    local procedure LYRClac()
-    var
-        StartDate: Date;
-    begin
-        StartDate := CalcDate('-CY-1Y', ReportingDate);
-        SalesInvoiceLine.Reset();
-        SalesInvoiceLine.SetRange("Document No.", "Sales Invoice Header"."No.");
-        SalesInvoiceLine.SetRange("Posting Date", StartDate);
+        SalesInvoiceLine.SetRange("Posting Date", ArrayDateCalc[5, 1], ArrayDateCalc[5, 2]);
         if SalesInvoiceLine.FindSet() then begin
             SalesInvoiceLine.CalcSums(Amount);
             LYR := SalesInvoiceLine.Amount;
-        end
-        else
-            LYR := 0;
+        end;
+
+        SalesCrMemoLine.Reset();
+        SalesCrMemoLine.SetRange("Sell-to Customer No.", "Sales Invoice Header"."Sell-to Customer No.");
+        SalesCrMemoLine.SetRange("Posting Date", ArrayDateCalc[1, 1], ArrayDateCalc[1, 2]);
+        if SalesCrMemoLine.FindSet() then begin
+            SalesCrMemoLine.CalcSums(Amount);
+            MTDCreMemo := SalesCrMemoLine.Amount;
+        end;
+
+        SalesCrMemoLine.SetRange("Posting Date", ArrayDateCalc[2, 1], ArrayDateCalc[2, 2]);
+        if SalesCrMemoLine.FindSet() then begin
+            SalesCrMemoLine.CalcSums(Amount);
+            LYMTDCreMemo := SalesCrMemoLine.Amount;
+        end;
+
+        SalesCrMemoLine.SetRange("Posting Date", ArrayDateCalc[3, 1], ArrayDateCalc[3, 2]);
+        if SalesCrMemoLine.FindSet() then begin
+            SalesCrMemoLine.CalcSums(Amount);
+            YTDCreMemo := SalesCrMemoLine.Amount;
+        end;
+
+        SalesCrMemoLine.SetRange("Posting Date", ArrayDateCalc[4, 1], ArrayDateCalc[4, 2]);
+        if SalesCrMemoLine.FindSet() then begin
+            SalesCrMemoLine.CalcSums(Amount);
+            LYTDCreMemo := SalesCrMemoLine.Amount;
+        end;
+
+        SalesCrMemoLine.SetRange("Posting Date", ArrayDateCalc[5, 1], ArrayDateCalc[5, 2]);
+        if SalesCrMemoLine.FindSet() then begin
+            SalesCrMemoLine.CalcSums(Amount);
+            LYRCreMemo := SalesCrMemoLine.Amount;
+        end;
 
     end;
 
@@ -183,7 +189,21 @@ report 50197 SalesPerformanceByShipTo
 
         LYTD: Decimal;
         LYR: Decimal;
+
+        MTDCreMemo: Decimal;
+
+        LYMTDCreMemo: Decimal;
+
+        YTDCreMemo: Decimal;
+        LYTDCreMemo: Decimal;
+        LYRCreMemo: Decimal;
+
+        SalesLine: Record "Sales Line";
         SalesInvoiceLine: Record "Sales Invoice Line";
+
+        SalesCrMemoLine: Record "Sales Cr.Memo Line";
         PreviousYear: Integer;
         OpenSalesOrders: Decimal;
+
+        ArrayDateCalc: array[5, 5] of Date;
 }

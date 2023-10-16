@@ -676,7 +676,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!MTD.Value)</Value>
+                                  <Value>=Sum(Fields!MTD.Value)-Fields!MTDCreMemo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -713,7 +713,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!LYMTD.Value)</Value>
+                                  <Value>=Sum(Fields!LYMTD.Value)-Fields!LYMTDCreMemo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -750,7 +750,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!MTD.Value-Fields!LYMTD.Value)</Value>
+                                  <Value>=Sum(Fields!MTD.Value)-(Fields!LYMTD.Value+Fields!MTDCreMemo.Value)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -787,7 +787,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!YTD.Value)</Value>
+                                  <Value>=Sum(Fields!YTD.Value)-Fields!YTDCreMemo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -824,7 +824,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!LYTD.Value)</Value>
+                                  <Value>=Sum(Fields!LYTD.Value)-Fields!LYTDCreMemo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -861,7 +861,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!LYR.Value)</Value>
+                                  <Value>=Sum(Fields!LYR.Value)-Fields!LYRCreMemo.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -887,6 +887,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1697,6 +1698,36 @@ End Function
         </Field>
         <Field Name="PreviousYear">
           <DataField>PreviousYear</DataField>
+        </Field>
+        <Field Name="MTDCreMemo">
+          <DataField>MTDCreMemo</DataField>
+        </Field>
+        <Field Name="MTDCreMemoFormat">
+          <DataField>MTDCreMemoFormat</DataField>
+        </Field>
+        <Field Name="LYMTDCreMemo">
+          <DataField>LYMTDCreMemo</DataField>
+        </Field>
+        <Field Name="LYMTDCreMemoFormat">
+          <DataField>LYMTDCreMemoFormat</DataField>
+        </Field>
+        <Field Name="YTDCreMemo">
+          <DataField>YTDCreMemo</DataField>
+        </Field>
+        <Field Name="YTDCreMemoFormat">
+          <DataField>YTDCreMemoFormat</DataField>
+        </Field>
+        <Field Name="LYTDCreMemo">
+          <DataField>LYTDCreMemo</DataField>
+        </Field>
+        <Field Name="LYTDCreMemoFormat">
+          <DataField>LYTDCreMemoFormat</DataField>
+        </Field>
+        <Field Name="LYRCreMemo">
+          <DataField>LYRCreMemo</DataField>
+        </Field>
+        <Field Name="LYRCreMemoFormat">
+          <DataField>LYRCreMemoFormat</DataField>
         </Field>
       </Fields>
       <Query>
