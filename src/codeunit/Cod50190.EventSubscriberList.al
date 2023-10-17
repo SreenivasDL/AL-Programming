@@ -6,4 +6,10 @@ codeunit 50190 EventSubscriberList
         if ReportId = Report::"Standard Sales - Order Conf." then
             NewReportId := Report::SalesConfirmationSubstitute;
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Customer Templ. Mgt.", 'OnAfterCreateCustomerFromTemplate', '', false, false)]
+    local procedure MyProcedure()
+    begin
+
+    end;
 }
