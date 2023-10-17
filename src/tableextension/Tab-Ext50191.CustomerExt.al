@@ -6,5 +6,9 @@ tableextension 50191 CustomerExt extends Customer
         {
             DataClassification = ToBeClassified;
         }
+        field(50191; "Payment Collection Method"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }

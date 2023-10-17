@@ -1,14 +1,8 @@
-pageextension 50196 CustomerCardExt extends "Customer Card"
+pageextension 50198 CustomerTempCardExt extends "Customer Templ. Card"
 {
     layout
     {
-        addafter("CFDI Customer Name")
-        {
-            field("Customer Group"; Rec."Customer Group")
-            {
-                ApplicationArea = all;
-            }
-        }
+        // Add changes to page layout here
         addafter("Check Date Separator")
         {
             field("Payment Collection Method"; Rec."Payment Collection Method")
