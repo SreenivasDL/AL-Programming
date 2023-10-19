@@ -24,6 +24,10 @@ page 50190 "Flowfilter demo"
                 {
                     ApplicationArea = all;
                 }
+                field("Total Amount 2"; Rec."Total Amount")
+                {
+                    ApplicationArea = all;
+                }
             }
         }
     }

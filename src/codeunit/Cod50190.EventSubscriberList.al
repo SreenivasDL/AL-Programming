@@ -20,6 +20,45 @@ codeunit 50190 EventSubscriberList
         EventProceduresPermissions.CustomerGroup(Rec."Sell-to Customer No.");
     end;
 
+    // [EventSubscriber(ObjectType::Table, Database::"Sales Header", OnBeforeValidateEvent, "Bill-to Contact No.", false, false)]
+    // local procedure MyProcedure(var Rec: Record "Sales Header")
+    // var
+    //     Contact: Record Contact;
+    // begin
+    //     if Page.RunModal(5052, Contact) = Action::LookupOK then
+    //         Message('hi');
+    // end;
+
+    // [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeLookupContact', '', true, true)]
+    // local procedure MyProcedure()
+    // begin
+    //     Message('hi');
+    // end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order", OnAfterActionEvent, 'Release', true, true)]
+    local procedure OpenToRelease(var Rec: Record "Sales Header")
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Get('DESKTOP-L86DHRF\SREENIVAS');
+        if (UserSetup."Allow To Change Status") = true then begin
+            Rec.Status := Rec.Status::Released;
+            Rec.Modify();
+        end
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order", OnAfterActionEvent, 'Reopen', true, true)]
+    local procedure ReleaseToOpen(var Rec: Record "Sales Header")
+    var
+        UserSetup: Record "User Setup";
+    begin
+        UserSetup.Get('DESKTOP-L86DHRF\SREENIVAS');
+        if UserSetup."Allow To Change Status" = true then begin
+            Rec.Status := Rec.Status::Open;
+            Rec.Modify();
+        end
+    end;
+
     var
         EventProceduresPermissions: Codeunit EventProceduresPermissions;
 
