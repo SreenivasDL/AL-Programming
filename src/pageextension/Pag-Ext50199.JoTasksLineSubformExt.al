@@ -37,15 +37,6 @@ pageextension 50199 JoTasksLineSubformExt extends "Job Task Lines Subform"
                     Rec.Modify();
                 end;
             until JobTask.Next() = 0;
-        // JobTask.SetFilter("Job Task No.", '13*', Rec."Job Task No.");
-        // if JobTask.FindSet() then
-        //     repeat
-        //         JobTask.CalcFields("Schedule (Total Cost)");
-        //         JobTask.CalcFields("Schedule (Total Price)");
-        //         JobTask.Buyout := JobTask."Schedule (Total Cost)" + JobTask."Schedule (Total Price)";
-        //     until JobTask.Next() = 0
-        // else
-        //     JobTask.Buyout := 0;
 
     end;
 

@@ -45,6 +45,10 @@ codeunit 50190 EventSubscriberList
             Rec.Status := Rec.Status::Released;
             Rec.Modify();
         end
+        else begin
+            Rec.Status := Rec.Status::Open;
+            Rec.Modify();
+        end;
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Sales Order", OnAfterActionEvent, 'Reopen', true, true)]
@@ -57,6 +61,20 @@ codeunit 50190 EventSubscriberList
             Rec.Status := Rec.Status::Open;
             Rec.Modify();
         end
+        else begin
+            Rec.Status := Rec.Status::Released;
+            Rec.Modify();
+        end;
+
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post and Send", 'OnBeforeConfirmPostAndSend', '', true, true)]
+    local procedure MyProcedure(var IsHandled: Boolean; var Result: Boolean; var TempDocumentSendingProfile: Record "Document Sending Profile" temporary; SalesHeader: Record "Sales Header")
+    begin
+        IsHandled := true;
+        if IsHandled = true then
+            if PAGE.RunModal(PAGE::"Customer Card", TempDocumentSendingProfile) <> ACTION::Yes then
+                exit;
     end;
 
     var

@@ -41,4 +41,19 @@ codeunit 50191 EventProceduresPermissions
             until JobTask.Next() = 0;
     end;
 
+    procedure CustomEMail()
+    var
+        EmailEditor: Page "Email Editor";
+    begin
+        EmailEditor.Run();
+    end;
+
+    procedure SendAnEMail()
+    var
+        Email: Codeunit Email;
+        EmailMsg: Codeunit "Email Message";
+    begin
+        EmailMsg.Create('AGT@gmail.com', 'Sending my custom Mail', '');
+    end;
+
 }
