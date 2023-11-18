@@ -56,4 +56,55 @@ codeunit 50191 EventProceduresPermissions
         EmailMsg.Create('AGT@gmail.com', 'Sending my custom Mail', '');
     end;
 
+    procedure AGTCreateNewItemOnAirtable(VAR AGTItemRec: Record Item)
+    var
+        HttpClient: HttpClient;
+        RequestMessage: HttpRequestMessage;
+        ResponseMessage: HttpResponseMessage;
+        RequestHeaders: HttpHeaders;
+
+        Response: Text;
+
+
+        ContentHeaders: HttpHeaders;
+        HttpContent: HttpContent;
+        Token: Text;
+        url: Text;
+        AGTJsonObj: JsonObject;
+        AGTJsonIDValue: JsonValue;
+        AGTJsonToken: JsonToken;
+
+    begin
+        url := 'https://api.airtable.com/v0/appHcYLyoslhkc8sa/tbl0OUPEayHbgSCFc';
+        Token := 'patFiIAp9XIULr5MG.fae4e723af681458d6ac0d93572bef24247786ef97ca8d381b789cd2cb617cef';
+        RequestMessage.SetRequestUri(Url);
+        RequestMessage.Method('GET');
+        RequestMessage.GetHeaders(RequestHeaders);
+        RequestHeaders.Add('Authorization', 'Bearer ' + Token);
+
+
+        // HttpContent.WriteFrom('{"records": [{"fields": {"Item No": "21729","Description": "APP LBH-300","Item Category": "CONDULET","Unit Price": 0,"Quantity Available": 4}}]}');
+        // HttpContent.WriteFrom('{"fields": {"Item No": "' + AGTItemRec."No." + '","Description": "' + AGTItemRec.Description + '","Item Category": "' + AGTItemRec."Item Category Code" + '","Unit Price": ' + Format(AGTItemRec."Unit Price") + ',"Quantity Available": ' + Format(AGTItemRec."Unit Price") + ' }}');
+        // HttpContent.GetHeaders(ContentHeaders);
+        // ContentHeaders.Remove('Content-Type');
+        // ContentHeaders.Add('Content-Type', 'application/json');
+        // HttpContent.GetHeaders(ContentHeaders);
+        // RequestMessage.Content(HttpContent);
+
+        if HttpClient.Send(RequestMessage, ResponseMessage) then begin
+            ResponseMessage.Content.ReadAs(Response);
+            if ResponseMessage.IsSuccessStatusCode then begin
+                // AGTJsonObj.ReadFrom(Response);
+                // AGTJsonObj.Get('id', AGTJsonToken);
+
+                // AGTItemRec.AGTAirtableID := AGTJsonToken.AsValue().AsCode();
+                // AGTItemRec.Modify();
+                Message('Response : %1', Response);
+                //Update the in the table for that created item
+
+            end else
+                Message('Request failed!: %1', Response);
+        end;
+    end;
+
 }

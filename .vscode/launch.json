@@ -9,7 +9,7 @@
             "server": "http://localhost",
             "serverInstance": "BC220",
             "authentication": "Windows",
-            "startupObjectId": 50193,
+            "startupObjectId": 50196,
             "startupObjectType": "Page",
             "breakOnError": "All",
             "launchBrowser": true,

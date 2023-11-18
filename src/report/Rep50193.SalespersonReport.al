@@ -145,6 +145,7 @@ report 50193 SalespersonReport
         }
     }
 
+
     trigger OnPreReport()
     begin
         FirstDayOfMonth := CalcDate('-CM', SalesForMonth);
@@ -158,6 +159,7 @@ report 50193 SalespersonReport
         FourthWeekDay2 := FourthWeekDay1 + 6;
         FifthWeekDay1 := FourthWeekDay2 + 1;
         FifthWeekDay2 := CalcDate('+CM', SalesForMonth);
+
     end;
 
     // rendering

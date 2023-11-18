@@ -6,6 +6,15 @@ tableextension 50195 UserSetupExt extends "User Setup"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50191; "Approver Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50192; "Approver Email"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 }

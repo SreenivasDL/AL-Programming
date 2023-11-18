@@ -134,7 +134,6 @@ report 50191 NoOfCopies
                     trigger OnAfterGetRecord();
                     begin
                         if Number > 1 then begin
-                            CopyText := FormatDocument.GetCOPYText;
                             OutputNo += 1;
                         end;
 
@@ -142,8 +141,7 @@ report 50191 NoOfCopies
 
                     trigger OnPreDataItem();
                     begin
-                        NoOfLoops := ABS(NoOfCopies) + 2;
-                        CopyText := '';
+                        NoOfLoops := NoOfCopies + 2;
                         SETRANGE(Number, 1, NoOfLoops);
                         OutputNo := 1;
 

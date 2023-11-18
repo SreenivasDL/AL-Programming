@@ -9,7 +9,7 @@ pageextension 50190 SalesOrderext extends "Sales Order"
     {
         modify(PostAndSend)
         {
-            Visible = false;
+            Visible = true;
         }
         addafter("F&unctions")
         {

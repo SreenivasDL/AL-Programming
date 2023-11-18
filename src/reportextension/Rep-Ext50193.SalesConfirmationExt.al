@@ -11,6 +11,7 @@ reportextension 50193 SalesConfirmationExt extends "Standard Sales - Order Conf.
             }
         }
 
+
     }
 
     requestpage
