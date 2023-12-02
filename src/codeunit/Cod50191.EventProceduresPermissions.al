@@ -3,17 +3,17 @@ codeunit 50191 EventProceduresPermissions
     Permissions = tabledata Customer = rimd, tabledata "Sales Invoice Header" = rimd, tabledata "Job Task" = rimd, tabledata "Sales Header" = rimd;
     procedure CustomerGroup(CustomerNo: Code[20])
     var
-        SalesInvoiceHeader: Record "Sales Invoice Header";
+        SIH: Record "Sales Invoice Header";
         Customer: Record Customer;
     begin
-        SalesInvoiceHeader.Reset();
+
         if (Customer.Get(CustomerNo) and (Customer."Customer Group" <> '')) then begin
-            SalesInvoiceHeader.SetRange("Sell-to Customer No.", CustomerNo);
-            if SalesInvoiceHeader.FindSet() then
+            SIH.SetRange("Sell-to Customer Name", Customer.Name);
+            if SIH.FindSet() then
                 repeat
-                    SalesInvoiceHeader."Customer Group" := Customer."Customer Group";
-                    SalesInvoiceHeader.Modify();
-                until SalesInvoiceHeader.Next() = 0;
+                    SIH."Customer Group" := Customer."Customer Group";
+                    SIH.Modify();
+                until SIH.Next() = 0;
         end;
     end;
 
